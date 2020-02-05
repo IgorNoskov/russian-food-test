@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Russian food quiz",
+  "name": "What do you know about Russian food? Test your knowledge of Russian food.",
   "icons": [
     {
       "src": "favicon.ico",
