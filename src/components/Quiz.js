@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import quizData from '../store/quizData';
+import quizData from '../data/quizData';
 import {useStateValue} from '../states';
 import Question from './Question';
 

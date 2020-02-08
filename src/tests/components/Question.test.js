@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from '@testing-library/react';
 import Question from '../../components/Question';
-import quizData from '../../store/quizData';
+import quizData from '../../data/quizData';
 
 describe('renders Question component', () => {
     test('renders Question component', () => {
