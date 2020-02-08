@@ -5,14 +5,14 @@ describe('quizData has right structure', () => {
         expect(Array.isArray(quizData.questions)).toBe(true);
     });
 
-    test('questions has id and id is number', () => {
+    test('questions has id and id is a number', () => {
         quizData.questions.forEach((question) => {
             expect(question.hasOwnProperty('id')).toBe(true);
             expect(typeof question.id === 'number').toBe(true);
         });
     });
 
-    test('questions has question and question is string', () => {
+    test('questions has question and question is a string', () => {
         quizData.questions.forEach((question) => {
             expect(question.hasOwnProperty('question')).toBe(true);
             expect(typeof question.question === 'string').toBe(true);
@@ -26,7 +26,7 @@ describe('quizData has right structure', () => {
         });
     });
 
-    test('questions has correctAnswer', () => {
+    test('questions has correctAnswer and correctAnswer is a string', () => {
         quizData.questions.forEach((question) => {
             expect(question.hasOwnProperty('correctAnswer')).toBe(true);
             expect(typeof question.question === 'string').toBe(true);
