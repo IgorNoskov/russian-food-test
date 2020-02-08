@@ -70,7 +70,7 @@ function Quiz() {
                 <button
                     className="btn btn-primary"
                     onClick={() => handleButtonClick()}>
-                    Next question
+                    Next
                 </button>
             </div>
         </div>
