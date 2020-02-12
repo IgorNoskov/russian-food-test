@@ -10,15 +10,20 @@ import {useStateValue} from '../states';
 function Welcome() {
     const [, dispatch] = useStateValue();
 
+    /**
+     * Handles button click.
+     */
+    const handleButtonClick = () => {
+        dispatch({type: 'START'});
+    };
+
     return (
         <div className="welcome jumbotron bg-white shadow rounded text-center">
             <h1 className="display-4">What do you know about Russian food?</h1>
             <p className="lead">Test your knowledge of Russian food.</p>
             <button
                 className="btn btn-primary btn-lg"
-                onClick={() => {
-                    dispatch({type: 'START'});
-                }}>
+                onClick={handleButtonClick}>
                 Here goes!
             </button>
         </div>

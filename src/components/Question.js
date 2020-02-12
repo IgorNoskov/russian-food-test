@@ -11,6 +11,15 @@ import React from 'react';
 function Question({question, onInputChange}) {
     const inputIdPrefix = `question-${question.id}-`;
 
+    /**
+     * Handles input change.
+     *
+     * @param event
+     */
+    const handleInputChange = (event) => {
+        onInputChange(event.target.value);
+    };
+
     return (
         <>
             {question.options.map((option, index) => (
@@ -21,9 +30,7 @@ function Question({question, onInputChange}) {
                                name={question.id}
                                value={option}
                                className="custom-control-input"
-                               onChange={event => {
-                                   onInputChange(event.target.value);
-                               }}/>
+                               onChange={handleInputChange}/>
                         <label className="custom-control-label"
                                htmlFor={`${inputIdPrefix}-${index}`}>{option}</label>
                     </div>

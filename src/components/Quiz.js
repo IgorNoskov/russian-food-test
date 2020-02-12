@@ -14,29 +14,29 @@ function Quiz() {
     const [questionAnswer, setQuestionAnswer] = useState('');
     const [showError, setShowError] = useState(false);
 
-    const currentQuestion = quizData.questions[quizQuestionIndex];
-
     useEffect(() => {
         dispatch({type: 'ADD_QUESTIONS_AMOUNT', payload: {quizQuestionsAmount: quizData.questions.length}});
     }, [dispatch]);
+
+    const currentQuestion = quizData.questions[quizQuestionIndex];
 
     /**
      * Handles input change.
      *
      * @param {string} answer
      */
-    function handleInputChange(answer) {
+    const handleInputChange = (answer) => {
         if (showError === true) {
             setShowError(false);
         }
 
         setQuestionAnswer(answer);
-    }
+    };
 
     /**
-     * Handle button click.
+     * Handles button click.
      */
-    function handleButtonClick() {
+    const handleButtonClick = () => {
         if (questionAnswer === '') {
             setShowError(true);
 
@@ -55,7 +55,7 @@ function Quiz() {
         });
 
         setQuestionAnswer('');
-    }
+    };
 
     return (
         <div className="quiz card shadow rounded">
@@ -69,7 +69,7 @@ function Quiz() {
 
                 <button
                     className="btn btn-primary"
-                    onClick={() => handleButtonClick()}>
+                    onClick={handleButtonClick}>
                     Next
                 </button>
             </div>
