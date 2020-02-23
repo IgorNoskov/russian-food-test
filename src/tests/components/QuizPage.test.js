@@ -5,109 +5,77 @@ import quizReducer, {initialState, QUIZ_STATUSES} from '../../reducers/quizReduc
 import QuizPage from '../../components/QuizPage';
 
 describe('renders right components when quiz has NOT_STARTED status', () => {
-    test('renders Welcome component when quiz has NOT_STARTED status', () => {
-        const {container} = render(
+    let container;
+
+    beforeEach(() => {
+        ({container} = render(
             <StateProvider initialState={initialState} reducer={quizReducer}>
                 <QuizPage/>
             </StateProvider>
-        );
+        ));
+    });
 
+    test('renders Welcome component when quiz has NOT_STARTED status', () => {
         expect(container.querySelector('.welcome')).toBeInTheDocument();
     });
 
     test('doesn\'t render Quiz components when quiz has NOT_STARTED status', () => {
-        const {container} = render(
-            <StateProvider initialState={initialState} reducer={quizReducer}>
-                <QuizPage/>
-            </StateProvider>
-        );
-
         expect(container.querySelector('.quiz')).toBeNull();
     });
 
     test('doesn\'t render QuizResult components when quiz has NOT_STARTED status', () => {
-        const {container} = render(
-            <StateProvider initialState={initialState} reducer={quizReducer}>
-                <QuizPage/>
-            </StateProvider>
-        );
-
         expect(container.querySelector('.quiz-result')).toBeNull();
     });
 });
 
 describe('renders right components when quiz has STARTED status', () => {
-    test('doesn\'t render Welcome component when quiz has STARTED status', () => {
+    let container;
+
+    beforeEach(() => {
         initialState.quizStatus = QUIZ_STATUSES.STARTED;
 
-        const {container} = render(
+        ({container} = render(
             <StateProvider initialState={initialState} reducer={quizReducer}>
                 <QuizPage/>
             </StateProvider>
-        );
+        ));
+    });
 
+    test('doesn\'t render Welcome component when quiz has STARTED status', () => {
         expect(container.querySelector('.welcome')).toBeNull();
     });
 
     test('renders Quiz components when quiz has STARTED status', () => {
-        initialState.quizStatus = QUIZ_STATUSES.STARTED;
-
-        const {container} = render(
-            <StateProvider initialState={initialState} reducer={quizReducer}>
-                <QuizPage/>
-            </StateProvider>
-        );
-
         expect(container.querySelector('.quiz')).toBeInTheDocument();
     });
 
     test('doesn\'t render QuizResult components when quiz has STARTED status', () => {
-        initialState.quizStatus = QUIZ_STATUSES.STARTED;
-
-        const {container} = render(
-            <StateProvider initialState={initialState} reducer={quizReducer}>
-                <QuizPage/>
-            </StateProvider>
-        );
-
         expect(container.querySelector('.quiz-result')).toBeNull();
     });
 });
 
 describe('renders right components when quiz has FINISHED status', () => {
-    test('doesn\'t render Welcome component when quiz has FINISHED status', () => {
+    let container;
+
+    beforeEach(() => {
         initialState.quizStatus = QUIZ_STATUSES.FINISHED;
 
-        const {container} = render(
+        ({container} = render(
             <StateProvider initialState={initialState} reducer={quizReducer}>
                 <QuizPage/>
             </StateProvider>
-        );
+        ));
+    });
 
+    test('doesn\'t render Welcome component when quiz has FINISHED status', () => {
         expect(container.querySelector('.welcome')).toBeNull();
     });
 
     test('doesn\'t render Quiz components when quiz has FINISHED status', () => {
-        initialState.quizStatus = QUIZ_STATUSES.FINISHED;
-
-        const {container} = render(
-            <StateProvider initialState={initialState} reducer={quizReducer}>
-                <QuizPage/>
-            </StateProvider>
-        );
-
         expect(container.querySelector('.quiz')).toBeNull();
     });
 
     test('renders QuizResult components when quiz has FINISHED status', () => {
-        initialState.quizStatus = QUIZ_STATUSES.FINISHED;
-
-        const {container} = render(
-            <StateProvider initialState={initialState} reducer={quizReducer}>
-                <QuizPage/>
-            </StateProvider>
-        );
-
         expect(container.querySelector('.quiz-result')).toBeInTheDocument();
     });
 });
