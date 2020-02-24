@@ -1,16 +1,17 @@
-import {getResult, getScores} from '../../helpers/quiz';
+import {getResult, getScores, checkAnswer} from '../../helpers/quiz';
+import quizData from '../../data/quizData';
 
 describe('getScores method returns right value', () => {
     test('returns 1 score', () => {
         const answers = [
             {
                 id: 1,
-                questionAnswer: 'Answer 1',
+                answer: 'Answer 1',
                 isCorrect: true,
             },
             {
                 id: 2,
-                questionAnswer: 'Answer 2',
+                answer: 'Answer 2',
                 isCorrect: false,
             }
         ];
@@ -44,5 +45,19 @@ describe('getResult method returns right value', () => {
         const result = getResult(0);
 
         expect(result).toEqual('Oops! You don\'t know anything about Russian food!');
+    });
+});
+
+describe('checkAnswer method returns right value', () => {
+    test('returns true', () => {
+        const result = checkAnswer(quizData, 0, quizData.questions[0].correctAnswer);
+
+        expect(result).toBeTruthy();
+    });
+
+    test('returns false', () => {
+        const result = checkAnswer(quizData, 0, quizData.questions[1].correctAnswer);
+
+        expect(result).toBeFalsy();
     });
 });

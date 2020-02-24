@@ -1,59 +1,49 @@
-/**
- * Quiz statuses.
- *
- * @type {{NOT_STARTED: string, STARTED: string, FINISHED: string}}
- */
-export const QUIZ_STATUSES = {
-    NOT_STARTED: 'NOT_STARTED',
-    STARTED: 'STARTED',
-    FINISHED: 'FINISHED',
-};
+import {QuizStatuses, START, ADD_QUESTIONS_AMOUNT, ADD_ANSWER, ADD_RESULT} from '../actions/quizActions';
 
 /**
  * Initial state.
  *
- * @type {{quizQuestionsAmount: number, quizQuestionIndex: number, quizAnswers: [], quizResult: string, quizStatus: string}}
+ * @type {{result: string, currentQuestionIndex: number, answers: [], questionsAmount: number, status: string}}
  */
 export const initialState = {
-    quizStatus: QUIZ_STATUSES.NOT_STARTED,
-    quizQuestionsAmount: 0,
-    quizQuestionIndex: 0,
-    quizAnswers: [],
-    quizResult: '',
+    status: QuizStatuses.NOT_STARTED,
+    questionsAmount: 0,
+    currentQuestionIndex: 0,
+    answers: [],
+    result: '',
 };
 
 /**
  * Quiz reducer.
  *
  * @param state
- * @param action
- * @return {{data: *}}
+ * @param type
+ * @param payload
+ * @returns {{result: *}|{status: (*|string)}|{questionsAmount: number}|{currentQuestionIndex: number, answers: *[], status: (string)}}
  */
-const quizReducer = (state, action) => {
-    switch (action.type) {
-        case 'START':
+const quizReducer = (state, {type, payload}) => {
+    switch (type) {
+        case START:
             return {
                 ...state,
-                quizStatus: QUIZ_STATUSES.STARTED,
+                status: payload.status,
             };
-        case 'ADD_QUESTIONS_AMOUNT':
+        case ADD_QUESTIONS_AMOUNT:
             return {
                 ...state,
-                quizQuestionsAmount: action.payload.quizQuestionsAmount,
+                questionsAmount: payload.questionsAmount,
             };
-        case 'ADD_ANSWER':
-            const nextQuestionIndex = state.quizQuestionIndex + 1;
-
+        case ADD_ANSWER:
             return {
                 ...state,
-                quizStatus: state.quizQuestionsAmount === nextQuestionIndex ? QUIZ_STATUSES.FINISHED : state.quizStatus,
-                quizQuestionIndex: nextQuestionIndex,
-                quizAnswers: [...state.quizAnswers, action.payload.questionAnswer],
+                status: state.questionsAmount === payload.currentQuestionIndex ? QuizStatuses.FINISHED : state.status,
+                currentQuestionIndex: payload.currentQuestionIndex,
+                answers: [...state.answers, payload.answer],
             };
-        case 'ADD_RESULT':
+        case ADD_RESULT:
             return {
                 ...state,
-                quizResult: action.payload.quizResult,
+                result: payload.result,
             };
         default:
             throw new Error();

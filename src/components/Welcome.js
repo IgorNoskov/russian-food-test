@@ -1,5 +1,6 @@
 import React from 'react';
 import {useStateValue} from '../states';
+import {start} from '../actions/quizActions';
 
 /**
  * Welcome component.
@@ -14,7 +15,7 @@ function Welcome() {
      * Handles button click.
      */
     const handleButtonClick = () => {
-        dispatch({type: 'START'});
+        dispatch(start());
     };
 
     return (

@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import quizData from '../data/quizData';
 import {useStateValue} from '../states';
+import {addQuestionsAmount, addAnswer} from '../actions/quizActions';
 import Question from './Question';
+import {checkAnswer} from '../helpers/quiz';
 
 /**
  * Quiz component.
@@ -10,15 +12,15 @@ import Question from './Question';
  * @constructor
  */
 function Quiz() {
-    const [{quizQuestionIndex}, dispatch] = useStateValue();
-    const [questionAnswer, setQuestionAnswer] = useState('');
+    const [{currentQuestionIndex}, dispatch] = useStateValue();
+    const [answer, setAnswer] = useState('');
     const [showError, setShowError] = useState(false);
 
     useEffect(() => {
-        dispatch({type: 'ADD_QUESTIONS_AMOUNT', payload: {quizQuestionsAmount: quizData.questions.length}});
+        dispatch(addQuestionsAmount(quizData.questions.length));
     }, [dispatch]);
 
-    const currentQuestion = quizData.questions[quizQuestionIndex];
+    const currentQuestion = quizData.questions[currentQuestionIndex];
 
     /**
      * Handles input change.
@@ -26,35 +28,25 @@ function Quiz() {
      * @param {string} answer
      */
     const handleInputChange = (answer) => {
-        if (showError === true) {
-            setShowError(false);
-        }
-
-        setQuestionAnswer(answer);
+        setShowError(false);
+        setAnswer(answer);
     };
 
     /**
      * Handles button click.
      */
     const handleButtonClick = () => {
-        if (questionAnswer === '') {
+        if (answer === '') {
             setShowError(true);
 
             return;
         }
 
-        dispatch({
-            type: 'ADD_ANSWER',
-            payload: {
-                questionAnswer: {
-                    id: quizQuestionIndex,
-                    questionAnswer,
-                    isCorrect: questionAnswer === quizData.questions[quizQuestionIndex].correctAnswer,
-                },
-            },
-        });
+        const isAnswerCorrect = checkAnswer(quizData, currentQuestionIndex, answer);
 
-        setQuestionAnswer('');
+        dispatch(addAnswer(currentQuestionIndex, answer, isAnswerCorrect));
+
+        setAnswer('');
     };
 
     return (

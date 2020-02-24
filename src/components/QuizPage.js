@@ -1,6 +1,6 @@
 import React from 'react';
 import {useStateValue} from '../states';
-import {QUIZ_STATUSES} from '../reducers/quizReducer';
+import {QuizStatuses} from '../actions/quizActions';
 import Welcome from './Welcome';
 import Quiz from './Quiz';
 import QuizResult from './QuizResult';
@@ -12,13 +12,13 @@ import QuizResult from './QuizResult';
  * @constructor
  */
 function QuizPage() {
-    const [{quizStatus}] = useStateValue();
+    const [{status}] = useStateValue();
 
     return (
         <div className="quiz-page container vh-100 pt-5 pb-5">
-            {quizStatus === QUIZ_STATUSES.NOT_STARTED && <Welcome/>}
-            {quizStatus === QUIZ_STATUSES.STARTED && <Quiz/>}
-            {quizStatus === QUIZ_STATUSES.FINISHED && <QuizResult/>}
+            {status === QuizStatuses.NOT_STARTED && <Welcome/>}
+            {status === QuizStatuses.STARTED && <Quiz/>}
+            {status === QuizStatuses.FINISHED && <QuizResult/>}
         </div>
     );
 }

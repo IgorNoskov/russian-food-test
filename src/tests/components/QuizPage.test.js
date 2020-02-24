@@ -1,7 +1,8 @@
 import React from 'react';
 import {render} from '@testing-library/react';
 import {StateProvider} from '../../states';
-import quizReducer, {initialState, QUIZ_STATUSES} from '../../reducers/quizReducer';
+import quizReducer, {initialState} from '../../reducers/quizReducer';
+import {QuizStatuses} from '../../actions/quizActions';
 import QuizPage from '../../components/QuizPage';
 
 describe('renders right components when quiz has NOT_STARTED status', () => {
@@ -32,7 +33,7 @@ describe('renders right components when quiz has STARTED status', () => {
     let container;
 
     beforeEach(() => {
-        initialState.quizStatus = QUIZ_STATUSES.STARTED;
+        initialState.status = QuizStatuses.STARTED;
 
         ({container} = render(
             <StateProvider initialState={initialState} reducer={quizReducer}>
@@ -58,7 +59,7 @@ describe('renders right components when quiz has FINISHED status', () => {
     let container;
 
     beforeEach(() => {
-        initialState.quizStatus = QUIZ_STATUSES.FINISHED;
+        initialState.status = QuizStatuses.FINISHED;
 
         ({container} = render(
             <StateProvider initialState={initialState} reducer={quizReducer}>

@@ -26,3 +26,15 @@ export function getResult(scores) {
             return 'Oops! You don\'t know anything about Russian food!';
     }
 }
+
+/**
+ * Checks the question answer.
+ *
+ * @param quizData
+ * @param currentQuestionIndex
+ * @param answer
+ * @returns {boolean}
+ */
+export function checkAnswer(quizData, currentQuestionIndex, answer) {
+    return answer === quizData.questions[currentQuestionIndex].correctAnswer;
+}
