@@ -1,12 +1,36 @@
 import React from 'react';
 import {render} from '@testing-library/react';
 import {StateProvider} from '../../states';
-import quizReducer, {initialState} from '../../reducers/quizReducer';
+import quizReducer from '../../reducers/quizReducer';
 import QuizResult from '../../components/QuizResult';
+import {QuizStatuses} from '../../actions/quizActions';
 
 let container;
 
 beforeEach(() => {
+    const initialState = {
+        status: QuizStatuses.FINISHED,
+        questionsAmount: 3,
+        currentQuestionIndex: 4,
+        answers: [
+            {
+                id: 0,
+                answer: 'Answer',
+                isCorrect: true,
+            },
+            {
+                id: 1,
+                answer: 'Answer',
+                isCorrect: true,
+            },
+            {
+                id: 2,
+                answer: 'Answer',
+                isCorrect: false,
+            },
+        ],
+    };
+
     ({container} = render(
         <StateProvider initialState={initialState} reducer={quizReducer}>
             <QuizResult/>
@@ -25,6 +49,6 @@ describe('renders QuizResult component', () => {
 
     test('the title has a right text', () => {
         expect(container.querySelector('h5').textContent)
-            .toEqual('Oops! You don\'t know anything about Russian food!');
+            .toEqual('Not bad, you know something about Russian food.');
     });
 });

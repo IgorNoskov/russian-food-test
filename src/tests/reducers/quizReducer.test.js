@@ -154,6 +154,8 @@ describe('quiz reducer returns right states', () => {
     });
 
     test('throws an exception when an unknown action type is used', () => {
-        expect(quizReducer).toThrow(Error);
+        expect(() => {
+            quizReducer(initialState, {type: 'NON_EXISTING'})
+        }).toThrow(Error);
     });
 });
